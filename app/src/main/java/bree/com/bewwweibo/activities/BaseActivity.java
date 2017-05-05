@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,7 +18,7 @@ import bree.com.bewwweibo.R;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    private TextView title;
+    private Toolbar mToolbar;
     private RelativeLayout rlContent;
 
     @Override

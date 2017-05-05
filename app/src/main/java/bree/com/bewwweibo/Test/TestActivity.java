@@ -1,13 +1,12 @@
-package bree.com.bewwweibo.activities;
+package bree.com.bewwweibo.Test;
 
 import android.content.Intent;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import bree.com.bewwweibo.R;
+import bree.com.bewwweibo.activities.BaseActivity;
 
 public class TestActivity extends BaseActivity {
 

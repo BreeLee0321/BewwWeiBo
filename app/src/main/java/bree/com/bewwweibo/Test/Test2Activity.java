@@ -1,4 +1,4 @@
-package bree.com.bewwweibo.activities;
+package bree.com.bewwweibo.Test;
 
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import bree.com.bewwweibo.R;
+import bree.com.bewwweibo.activities.BaseActivity;
 
 public class Test2Activity extends BaseActivity {
 
