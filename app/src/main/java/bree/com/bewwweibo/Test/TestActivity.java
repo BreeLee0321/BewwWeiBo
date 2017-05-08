@@ -7,8 +7,11 @@ import android.view.View;
 
 import bree.com.bewwweibo.R;
 import bree.com.bewwweibo.activities.BaseActivity;
+import bree.com.bewwweibo.activities.ToorBarX;
 
 public class TestActivity extends BaseActivity {
+
+    private ToorBarX toorBarX;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -19,6 +22,12 @@ public class TestActivity extends BaseActivity {
                 startActivity(new Intent(TestActivity.this,Test2Activity.class));
             }
         });
+
+        toorBarX = getToorBarX();
+        toorBarX.setTitle("title");
+        toorBarX.setSubTitle("suntitle");
+
+
     }
 
 
