@@ -71,4 +71,9 @@ public class ToorBarX {
         return this;
     }
 
+    public ToorBarX hide(){
+        actionBar.hide();
+        return this;
+    }
+
 }
