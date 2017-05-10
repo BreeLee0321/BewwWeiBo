@@ -1,7 +1,7 @@
 package bree.com.bewwweibo.utils;
 
 import bree.com.bewwweibo.Constants.PrepKey;
-import bree.com.bewwweibo.MyApplication;
+import bree.com.bewwweibo.application.MyApplication;
 
 /**
  * Created by bree on 2017/5/10.

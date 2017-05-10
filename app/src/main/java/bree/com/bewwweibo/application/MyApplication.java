@@ -1,4 +1,4 @@
-package bree.com.bewwweibo;
+package bree.com.bewwweibo.application;
 
 import android.app.Application;
 import android.content.Context;
