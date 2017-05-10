@@ -5,9 +5,9 @@ import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.view.View;
 
+import bree.com.bewwweibo.CustomView.ToorBarX;
 import bree.com.bewwweibo.R;
 import bree.com.bewwweibo.activities.BaseActivity;
-import bree.com.bewwweibo.activities.ToorBarX;
 
 public class TestActivity extends BaseActivity {
 

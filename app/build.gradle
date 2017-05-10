@@ -11,10 +11,23 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs{
+        debug{
+            storeFile file("E:\\BaiduYunDownload\\菜鸟微博\\bewwWeiBo.jks")
+            storePassword "123456"
+            keyAlias "BreeWeiBoAlias"
+            keyPassword "123456"
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
         }
     }
 }
@@ -27,4 +40,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.2.1'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:support-v4:25.2.0'
+    compile files('libs/weiboSDKCore_3.1.4.jar')
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+    compile 'com.google.code.gson:gson:2.8.0'
 }

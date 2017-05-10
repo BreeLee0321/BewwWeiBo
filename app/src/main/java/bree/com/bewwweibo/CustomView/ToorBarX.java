@@ -1,4 +1,4 @@
-package bree.com.bewwweibo.activities;
+package bree.com.bewwweibo.CustomView;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
