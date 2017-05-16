@@ -53,6 +53,7 @@ public class HomePageAdapter extends RecyclerView.Adapter {
             homePageHolder.tvContent.setText(RichTextUtils.getRichText(context, entity.text));
             homePageHolder.tvContent.setMovementMethod(LinkMovementMethod.getInstance());
             homePageHolder.tvSource.setText(Html.fromHtml(entity.source).toString());
+
             Glide.with(context).load(entity.user.profile_image_url).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_default_header).transform(new CircleTransform(context)).into(homePageHolder.ivHeader);
             List<PicUrlsEntity> pics = entity.pic_urls;
             if (null != pics && pics.size() > 0) {
