@@ -1,7 +1,10 @@
 package bree.com.bewwweibo.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -13,6 +16,7 @@ import bree.com.bewwweibo.R;
 import bree.com.bewwweibo.fragment.HomeFragment;
 import bree.com.bewwweibo.fragment.MessageFragment;
 import bree.com.bewwweibo.fragment.ProfileFragment;
+import de.greenrobot.event.EventBus;
 
 
 public class HomePageActivity extends BaseActivity {
@@ -22,7 +26,7 @@ public class HomePageActivity extends BaseActivity {
     private RadioButton rbMessage;
     private RadioButton rbProfile;
     private RadioGroup rgTab;
-
+    private Context context;
     private int menuId=R.menu.mune_home;
 
     private Class fragment[];
@@ -32,6 +36,7 @@ public class HomePageActivity extends BaseActivity {
         getToorBarX().setDispalyHoneAsUpEnabled(false).setTitle(R.string.app_name);
         fragment=new Class[]{HomeFragment.class, MessageFragment.class, ProfileFragment.class};
         initialize();
+        context=this;
 
     }
 
@@ -91,6 +96,11 @@ public class HomePageActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+//        Intent intent=new Intent();
+//        intent.setAction("change");
+//        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+        EventBus.getDefault().post(item.getItemId());
         return true;
     }
 }

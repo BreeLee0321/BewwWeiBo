@@ -103,7 +103,7 @@
         android:orientation="horizontal"
         android:padding="@dimen/space_m">
 
-       <!-- <com.cniao5.cweibo.views.DrawCenterTextView
+       <bree.com.bewwweibo.CustomView.DrawCenterTextView
             android:drawablePadding="@dimen/space_s"
             android:id="@+id/tvRetweet"
             android:layout_width="match_parent"
@@ -111,7 +111,7 @@
             android:layout_weight="1"
             android:background="@color/cw_white"
             android:drawableLeft="@mipmap/ic_toolbar_icon_retweet"
-            android:text="@string/empty_string"/>-->
+            android:text="@string/empty_string"/>
 
         <View
             android:layout_marginLeft="@dimen/space_s"
@@ -120,7 +120,7 @@
             android:layout_height="match_parent"
             android:background="@color/cw_grey"/>
 
- <!--       <com.cniao5.cweibo.views.DrawCenterTextView
+      <bree.com.bewwweibo.CustomView.DrawCenterTextView
             android:drawablePadding="@dimen/space_s"
             android:id="@+id/tvLike"
             android:layout_width="match_parent"
@@ -129,7 +129,7 @@
             android:background="@color/cw_white"
             android:drawableLeft="@mipmap/ic_icon_unlike"
             android:text="@string/empty_string"/>
--->
+
         <View
             android:layout_marginLeft="@dimen/space_s"
             android:layout_marginRight="@dimen/space_s"
@@ -137,7 +137,7 @@
             android:layout_height="match_parent"
             android:background="@color/cw_grey"/>
 
-       <!-- <com.cniao5.cweibo.views.DrawCenterTextView
+       <bree.com.bewwweibo.CustomView.DrawCenterTextView
             android:drawablePadding="@dimen/space_s"
             android:id="@+id/tvComment"
             android:layout_width="match_parent"
@@ -145,6 +145,6 @@
             android:layout_weight="1"
             android:background="@color/cw_white"
             android:drawableLeft="@mipmap/ic_toolbar_icon_comment"
-            android:text="@string/empty_string"/>-->
+            android:text="@string/empty_string"/>
     </LinearLayout>
 </LinearLayout>

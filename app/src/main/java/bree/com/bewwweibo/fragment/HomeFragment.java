@@ -1,7 +1,12 @@
 package bree.com.bewwweibo.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -31,6 +36,7 @@ import bree.com.bewwweibo.utils.LogUtil;
 import bree.com.bewwweibo.utils.MyPreference;
 import bree.com.bewwweibo.utils.ToastUtil;
 import bree.com.bewwweibo.utils.WeiBoTokenUtil;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by bree on 2017/5/8.
@@ -52,6 +58,15 @@ public class HomeFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         myPreference = MyPreference.getInstance(context);
         total=new ArrayList<>();
+        EventBus.getDefault().register(this);
+//        IntentFilter filter=new IntentFilter();
+//        filter.addAction("change");
+//        LocalBroadcastManager.getInstance(context).registerReceiver(new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
+//                setData(BWUrls.USER_TIME_LINE);
+//            }
+//        },filter);
     }
 
     @Nullable
@@ -59,7 +74,12 @@ public class HomeFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rlv= (RecyclerView) inflater.inflate(R.layout.v_common_recyclerview, container, false);
         init();
-        new BaseNetwork(context, BWUrls.WEIBO_PUBLIC_TIMELINE) {
+        setData(BWUrls.HOME_TIME_LINE);
+        return rlv;
+    }
+
+    private void setData(String url) {
+        new BaseNetwork(context, url) {
             @Override
             public WeiboParameters setWeiboParameters() {
                 WeiboParameters weiboParameters = new WeiboParameters(BWConstants.APP_KEY);
@@ -81,14 +101,13 @@ public class HomeFragment extends BaseFragment {
                     }
                     adapter.notifyDataSetChanged();
 
-                    LogUtil.d("onFinish  success "+list.size());
+//                    LogUtil.d("onFinish  success "+httpResponse.response);
                 } else {
                     LogUtil.d("onFinish error "+httpResponse.message);
                     ToastUtil.ShowToast(httpResponse.message);
                 }
             }
         }.get();
-        return rlv;
     }
 
     private void init() {
@@ -96,7 +115,7 @@ public class HomeFragment extends BaseFragment {
         rlv.setLayoutManager(layoutManager);
         itemDecoration=new DividerItemDecoration(context,LinearLayoutManager.VERTICAL);
         rlv.addItemDecoration(itemDecoration);
-        adapter = new HomePageAdapter(total);
+        adapter =  new HomePageAdapter(total,context );
         rlv.setAdapter(adapter);
         adapter.setOnItemClickListener(new HomePageAdapter.OnItemClickListener() {
             @Override
@@ -105,5 +124,21 @@ public class HomeFragment extends BaseFragment {
             }
         });
     }
+    public void onEventMainThread(Integer event){
+        switch (event){
+            case R.id.action_one:
+                setData(BWUrls.HOME_TIME_LINE);
+                break;
+            case R.id.action_two:
+                setData(BWUrls.USER_TIME_LINE);
+                break;
+        }
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

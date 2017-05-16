@@ -2,16 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        app:showAsAction="always"
+        app:showAsAction="never"
         android:orderInCategory="101"
         android:id="@+id/action_one"
-        android:title="one"
+        android:title="首页"
 
         ></item>
     <item
         android:orderInCategory="102"
         android:id="@+id/action_two"
-        android:title="one"
-        app:showAsAction="always"
+        android:title="我的"
+        app:showAsAction="never"
         ></item>
 </menu>

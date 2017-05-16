@@ -1,7 +1,10 @@
 package bree.com.bewwweibo.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.text.method.MovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,22 +12,29 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import bree.com.bewwweibo.R;
+import bree.com.bewwweibo.entities.PicUrlsEntity;
 import bree.com.bewwweibo.entities.StatusEntity;
+import bree.com.bewwweibo.utils.CircleTransform;
+import bree.com.bewwweibo.utils.RichTextUtils;
 import bree.com.bewwweibo.utils.TimeFormatUtils;
 
 /**
  * Created by bree on 2017/5/10.
  */
 
-public class HomePageAdapter extends RecyclerView.Adapter{
+public class HomePageAdapter extends RecyclerView.Adapter {
     private List<StatusEntity> list;
     private OnItemClickListener onItemClickListener;
+    private Context context;
 
-    public HomePageAdapter(List<StatusEntity> list) {
+    public HomePageAdapter(List<StatusEntity> list, Context context) {
         this.list = list;
+        this.context = context;
     }
 
     @Override
@@ -35,20 +45,53 @@ public class HomePageAdapter extends RecyclerView.Adapter{
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof HomePageHolder){
-            HomePageHolder homePageHolder= (HomePageHolder) holder;
-            StatusEntity entity=list.get(position);
+        if (holder instanceof HomePageHolder) {
+            HomePageHolder homePageHolder = (HomePageHolder) holder;
+            StatusEntity entity = list.get(position);
             ((HomePageHolder) holder).tvUserName.setText(entity.user.screen_name);
             homePageHolder.tvTime.setText(TimeFormatUtils.parseToYYMMDD(entity.created_at));
-            homePageHolder.tvContent.setText(entity.text);
+            homePageHolder.tvContent.setText(RichTextUtils.getRichText(context, entity.text));
+            homePageHolder.tvContent.setMovementMethod(LinkMovementMethod.getInstance());
             homePageHolder.tvSource.setText(Html.fromHtml(entity.source).toString());
-            StatusEntity reStarus=entity.retweeted_status;
-            if (null!=reStarus){
-                homePageHolder.tvReContent.setText(reStarus.text);
+            Glide.with(context).load(entity.user.profile_image_url).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_default_header).transform(new CircleTransform(context)).into(homePageHolder.ivHeader);
+            List<PicUrlsEntity> pics = entity.pic_urls;
+            if (null != pics && pics.size() > 0) {
+                PicUrlsEntity pic = pics.get(0);
+                pic.original_pic = pic.thumbnail_pic.replace("thumbnail", "large");
+                pic.bmiddle_pic = pic.thumbnail_pic.replace("thumbnail", "bmiddle");
+                homePageHolder.ivContent.setVisibility(View.VISIBLE);
+                Glide.with(context).load(pic.bmiddle_pic).into(homePageHolder.ivContent);
+            } else {
+                homePageHolder.ivContent.setVisibility(View.GONE);
+            }
+            final StatusEntity reStatus = entity.retweeted_status;
+            String reContent="";
+            if (reStatus != null) {
+                try {
+                    reContent = "@" + reStatus.user.screen_name + ":" + reStatus.text;
+                } catch (Exception e) {
+                    reContent= reStatus.text;
+                }
+
+                homePageHolder.tvReContent.setText(RichTextUtils.getRichText(context, reContent));
+                homePageHolder.tvReContent.setMovementMethod(LinkMovementMethod.getInstance());
                 homePageHolder.llRe.setVisibility(View.VISIBLE);
-            }else {
+                List<PicUrlsEntity> rePics = reStatus.pic_urls;
+                if (null!=rePics && rePics.size() > 0) {
+                    PicUrlsEntity pic = rePics.get(0);
+                    pic.original_pic = pic.thumbnail_pic.replace("thumbnail", "large");
+                    pic.bmiddle_pic = pic.thumbnail_pic.replace("thumbnail", "bmiddle");
+                    homePageHolder.ivContent.setVisibility(View.VISIBLE);
+                    Glide.with(context).load(pic.bmiddle_pic).into(homePageHolder.ivReContent);
+                } else {
+                    homePageHolder.ivContent.setVisibility(View.GONE);
+                }
+            } else {
                 homePageHolder.llRe.setVisibility(View.GONE);
             }
+            homePageHolder.tvComment.setText(entity.comments_count + "");
+            homePageHolder.tvLike.setText(entity.attitudes_count + "");
+            homePageHolder.tvRetween.setText(entity.reposts_count + "");
 
         }
     }
@@ -58,7 +101,7 @@ public class HomePageAdapter extends RecyclerView.Adapter{
         return list.size();
     }
 
-    class HomePageHolder extends RecyclerView.ViewHolder{
+    class HomePageHolder extends RecyclerView.ViewHolder {
         private ImageView ivHeader;
         private TextView tvUserName;
         private TextView tvTime;
@@ -67,14 +110,15 @@ public class HomePageAdapter extends RecyclerView.Adapter{
         private TextView tvReContent;
         private LinearLayout llRe;
         private ImageView ivContent, ivReContent;
-        private TextView tvRetween,tvComment,tvLike;
+        private TextView tvRetween, tvComment, tvLike;
+
         public HomePageHolder(View itemView) {
             super(itemView);
             initialize(itemView);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemClickListener.onItemClick(v,getLayoutPosition());
+                    onItemClickListener.onItemClick(v, getLayoutPosition());
                 }
             });
 
@@ -91,17 +135,17 @@ public class HomePageAdapter extends RecyclerView.Adapter{
             llRe = (LinearLayout) v.findViewById(R.id.llRe);
             ivContent = (ImageView) v.findViewById(R.id.ivContent);
             ivReContent = (ImageView) v.findViewById(R.id.ivReContent);
-//            tvRetween = (TextView) v.findViewById(R.id.tvRetweet);
-//            tvComment = (TextView) v.findViewById(R.id.tvComment);
-//            tvLike = (TextView) v.findViewById(R.id.tvLike);
+            tvRetween = (TextView) v.findViewById(R.id.tvRetweet);
+            tvComment = (TextView) v.findViewById(R.id.tvComment);
+            tvLike = (TextView) v.findViewById(R.id.tvLike);
         }
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener){
-        this.onItemClickListener=listener;
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
     }
 
-    public interface OnItemClickListener{
-        void onItemClick(View v,int position);
+    public interface OnItemClickListener {
+        void onItemClick(View v, int position);
     }
 }

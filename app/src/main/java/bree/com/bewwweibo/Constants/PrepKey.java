@@ -11,5 +11,6 @@ public class PrepKey {
      *  false 用户未登录
      */
     public static final String LOGIN="login";
+
     public static final String LOGIN_TOKEN="login_token";
 }

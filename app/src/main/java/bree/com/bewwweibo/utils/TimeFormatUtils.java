@@ -8,13 +8,6 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 /**
- * Project Name：CWeiBo
- * Describe：
- * Author：yul
- * Created Time：下午3:14
- * Modify：yul
- * Modify Time：下午3:14
- * Remark：
  */
 public class TimeFormatUtils {
 
