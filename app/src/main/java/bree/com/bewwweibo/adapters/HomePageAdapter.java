@@ -1,6 +1,7 @@
 package bree.com.bewwweibo.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -17,8 +18,11 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import bree.com.bewwweibo.R;
+import bree.com.bewwweibo.activities.PhotoViewActivity;
+import bree.com.bewwweibo.activities.RePostActivity;
 import bree.com.bewwweibo.entities.PicUrlsEntity;
 import bree.com.bewwweibo.entities.StatusEntity;
+import bree.com.bewwweibo.networks.ParameterKeySet;
 import bree.com.bewwweibo.utils.CircleTransform;
 import bree.com.bewwweibo.utils.RichTextUtils;
 import bree.com.bewwweibo.utils.TimeFormatUtils;
@@ -47,7 +51,7 @@ public class HomePageAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof HomePageHolder) {
             HomePageHolder homePageHolder = (HomePageHolder) holder;
-            StatusEntity entity = list.get(position);
+            final StatusEntity entity = list.get(position);
             ((HomePageHolder) holder).tvUserName.setText(entity.user.screen_name);
             homePageHolder.tvTime.setText(TimeFormatUtils.parseToYYMMDD(entity.created_at));
             homePageHolder.tvContent.setText(RichTextUtils.getRichText(context, entity.text));
@@ -55,13 +59,33 @@ public class HomePageAdapter extends RecyclerView.Adapter {
             homePageHolder.tvSource.setText(Html.fromHtml(entity.source).toString());
 
             Glide.with(context).load(entity.user.profile_image_url).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_default_header).transform(new CircleTransform(context)).into(homePageHolder.ivHeader);
+
+            homePageHolder.ivHeader.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(context, PhotoViewActivity.class);
+                    intent.putExtra("Photo_url",entity.user.profile_image_url);
+                    context.startActivity(intent);
+
+                }
+            });
+
             List<PicUrlsEntity> pics = entity.pic_urls;
             if (null != pics && pics.size() > 0) {
-                PicUrlsEntity pic = pics.get(0);
+                final PicUrlsEntity pic = pics.get(0);
                 pic.original_pic = pic.thumbnail_pic.replace("thumbnail", "large");
                 pic.bmiddle_pic = pic.thumbnail_pic.replace("thumbnail", "bmiddle");
                 homePageHolder.ivContent.setVisibility(View.VISIBLE);
                 Glide.with(context).load(pic.bmiddle_pic).into(homePageHolder.ivContent);
+                homePageHolder.ivContent.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent(context, PhotoViewActivity.class);
+                        intent.putExtra("Photo_url",pic.original_pic);
+                        context.startActivity(intent);
+
+                    }
+                });
             } else {
                 homePageHolder.ivContent.setVisibility(View.GONE);
             }
@@ -79,13 +103,21 @@ public class HomePageAdapter extends RecyclerView.Adapter {
                 homePageHolder.llRe.setVisibility(View.VISIBLE);
                 List<PicUrlsEntity> rePics = reStatus.pic_urls;
                 if (null!=rePics && rePics.size() > 0) {
-                    PicUrlsEntity pic = rePics.get(0);
+                    final PicUrlsEntity pic = rePics.get(0);
                     pic.original_pic = pic.thumbnail_pic.replace("thumbnail", "large");
                     pic.bmiddle_pic = pic.thumbnail_pic.replace("thumbnail", "bmiddle");
-                    homePageHolder.ivContent.setVisibility(View.VISIBLE);
+                    homePageHolder.ivReContent.setVisibility(View.VISIBLE);
                     Glide.with(context).load(pic.bmiddle_pic).into(homePageHolder.ivReContent);
+                    homePageHolder.ivReContent.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent=new Intent(context, PhotoViewActivity.class);
+                            intent.putExtra("Photo_url",pic.original_pic);
+                            context.startActivity(intent);
+                        }
+                    });
                 } else {
-                    homePageHolder.ivContent.setVisibility(View.GONE);
+                    homePageHolder.ivReContent.setVisibility(View.GONE);
                 }
             } else {
                 homePageHolder.llRe.setVisibility(View.GONE);
@@ -93,6 +125,29 @@ public class HomePageAdapter extends RecyclerView.Adapter {
             homePageHolder.tvComment.setText(entity.comments_count + "");
             homePageHolder.tvLike.setText(entity.attitudes_count + "");
             homePageHolder.tvRetween.setText(entity.reposts_count + "");
+            homePageHolder.tvComment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, RePostActivity.class);
+                    intent.putExtra(ParameterKeySet.ID, entity.id+"");
+                    intent.setAction("COMMENT");
+                    context.startActivity(intent);
+                }
+            });
+            homePageHolder.tvRetween.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, RePostActivity.class);
+                    intent.putExtra(ParameterKeySet.ID, entity.id+"");
+                    if(null!=reStatus){
+                        intent.putExtra(ParameterKeySet.STATUS, entity.text);
+                    }
+                    intent.setAction("REPOST");
+                    context.startActivity(intent);
+                }
+            });
+
+
 
         }
     }

@@ -49,18 +49,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void startActivity(Intent intent) {
         super.startActivity(intent);
-        overridePendingTransition(R.anim.anmi_in_right_left, R.anim.anmi_out_right_left);
+//        overridePendingTransition(R.anim.anmi_in_right_left, R.anim.anmi_out_right_left);
     }
 
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(R.anim.anmi_out_right_left, R.anim.anmi_in_right_left);
+//        overridePendingTransition(R.anim.anmi_out_right_left, R.anim.anmi_in_right_left);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        overridePendingTransition(R.anim.anmi_out_right_left, R.anim.anmi_in_right_left);
+//        overridePendingTransition(R.anim.anmi_out_right_left, R.anim.anmi_in_right_left);
     }
 }

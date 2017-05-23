@@ -25,4 +25,5 @@
     <string name="lbl_my_fans">我的粉丝</string>
     <string name="lbl_fav">我的收藏</string>
     <string name="lbl_logout">退出登录</string>
+    <string name="et_content">请输入内容</string>
 </resources>
