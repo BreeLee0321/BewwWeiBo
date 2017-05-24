@@ -26,6 +26,7 @@
     <dimen name="avatar_size_l">60dp</dimen>
     <dimen name="avatar_size_xl">72dp</dimen>
     <dimen name="avatar_size_xxl">96dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
 
 </resources>

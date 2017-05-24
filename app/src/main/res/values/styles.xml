@@ -18,6 +18,7 @@
         <item name="android:textColor">@color/cw_yellow</item>
         <item name="android:singleLine">true</item>
     </style>
+
     <style name="tv_m_blue_sl">
         <item name="android:textSize">@dimen/txt_m</item>
         <item name="android:textColor">@color/cw_blue</item>
@@ -43,4 +44,14 @@
         <item name="android:textColorHint">@color/cw_grey</item>
         <item name="android:background">@color/cw_white</item>
     </style>
+
+    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="tv_s_grey_sl">
+        <item name="android:textSize">@dimen/txt_s</item>
+        <item name="android:textColor">@color/cw_grey</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
 </resources>

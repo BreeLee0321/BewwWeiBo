@@ -1,5 +1,6 @@
 package bree.com.bewwweibo.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  * Modify Time：下午10:34
  * Remark：
  */
-public class StatusEntity {
+public class StatusEntity implements Serializable{
 
     /**
      * created_at : Fri Nov 13 22:25:03 +0800 2015

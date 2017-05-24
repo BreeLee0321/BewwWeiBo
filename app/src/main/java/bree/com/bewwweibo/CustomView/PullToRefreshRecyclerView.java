@@ -8,6 +8,8 @@ import android.view.View;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 
+import bree.com.bewwweibo.adapters.ArticCommentAdapter;
+import bree.com.bewwweibo.utils.DividerItemDecoration;
 import bree.com.bewwweibo.utils.LogUtil;
 
 
@@ -53,11 +55,11 @@ public class PullToRefreshRecyclerView extends PullToRefreshBase<RecyclerView>{
         int count = mRefreshableView.getChildCount();
         View view = mRefreshableView.getChildAt(count - 1);
         int position = mRefreshableView.getChildLayoutPosition(view);
-        LogUtil.d("position"+position+"");
-        LogUtil.d("mRefreshableView.getAdapter().getItemCount()"+mRefreshableView.getAdapter().getItemCount()+"");
+//        LogUtil.d("position"+position+"");
+//        LogUtil.d("mRefreshableView.getAdapter().getItemCount()"+mRefreshableView.getAdapter().getItemCount()+"");
        if (position+1==mRefreshableView.getAdapter().getItemCount()){
-           LogUtil.d("view.getBottom()"+view.getBottom()+"");
-           LogUtil.d("mRefreshableView.getBottom()"+mRefreshableView.getBottom()+"");
+//           LogUtil.d("view.getBottom()"+view.getBottom()+"");
+//           LogUtil.d("mRefreshableView.getBottom()"+mRefreshableView.getBottom()+"");
            return view.getBottom() <= mRefreshableView.getBottom();
        }
         return false;
@@ -79,5 +81,18 @@ public class PullToRefreshRecyclerView extends PullToRefreshBase<RecyclerView>{
         }
 
         return false;
+
+    }
+
+    public void setLayoutManager(RecyclerView.LayoutManager layoutManager) {
+        mRefreshableView.setLayoutManager(layoutManager);
+    }
+
+    public void addItemDecoration(DividerItemDecoration itemDecoration) {
+        mRefreshableView.addItemDecoration(itemDecoration);
+    }
+
+    public void setAdapter(RecyclerView.Adapter adapter) {
+        mRefreshableView.setAdapter(adapter);
     }
 }

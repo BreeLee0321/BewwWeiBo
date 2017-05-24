@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BewwWeiBo</string>
+    <string name="app_name">BREE微博</string>
     <string name="action_settings">Settings</string>
     <string name="second_activity">第二个 activity</string>
     <string name="button">Button</string>
@@ -26,4 +26,5 @@
     <string name="lbl_fav">我的收藏</string>
     <string name="lbl_logout">退出登录</string>
     <string name="et_content">请输入内容</string>
+    <string name="title_activity_article_comment">微博正文</string>
 </resources>

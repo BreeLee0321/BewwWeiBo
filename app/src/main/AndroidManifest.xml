@@ -43,7 +43,11 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".activities.PhotoViewActivity" />
-        <activity android:name=".activities.RePostActivity"></activity>
+        <activity android:name=".activities.RePostActivity" />
+        <activity
+            android:name=".activities.ArticleCommentActivity"
+            android:label="@string/title_activity_article_comment"
+           ></activity>
     </application>
 
 </manifest>

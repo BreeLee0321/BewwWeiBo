@@ -28,6 +28,7 @@ import java.util.List;
 import bree.com.bewwweibo.Constants.BWConstants;
 import bree.com.bewwweibo.CustomView.PullToRefreshRecyclerView;
 import bree.com.bewwweibo.R;
+import bree.com.bewwweibo.activities.ArticleCommentActivity;
 import bree.com.bewwweibo.adapters.HomePageAdapter;
 import bree.com.bewwweibo.entities.HttpResponse;
 import bree.com.bewwweibo.entities.StatusEntity;
@@ -98,7 +99,10 @@ public class HomeFragment extends BaseFragment implements HomePresenterView {
         adapter.setOnItemClickListener(new HomePageAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                LogUtil.e(position + "");
+                Intent intent=new Intent(context,ArticleCommentActivity.class);
+                intent.putExtra(StatusEntity.class.getSimpleName(),total.get(position));
+                context.startActivity(intent);
+                LogUtil.e(position + "position position");
             }
         });
     }
