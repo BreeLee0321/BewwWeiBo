@@ -50,7 +50,6 @@ import de.greenrobot.event.EventBus;
  */
 
 public class HomeFragment extends BaseFragment implements HomePresenterView {
-    private MyPreference myPreference;
 
     private PullToRefreshRecyclerView rlv;
     private RecyclerView.LayoutManager layoutManager;
@@ -62,7 +61,6 @@ public class HomeFragment extends BaseFragment implements HomePresenterView {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        myPreference = MyPreference.getInstance(context);
         EventBus.getDefault().register(this);
         homePresenter = new HomePresenterImpl(this);
         total=new ArrayList<StatusEntity>();

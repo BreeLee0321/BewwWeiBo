@@ -33,7 +33,7 @@ public class HomePresenterImpl implements HomePresenter{
 
     public HomePresenterImpl(HomePresenterView homePresenterView){
         this.homePresenterView=homePresenterView;
-        myPreference=MyPreference.getInstance(homePresenterView.getContext());
+        myPreference=MyPreference.getInstance(homePresenterView.getActivity());
         total=new ArrayList<StatusEntity>();
     }
     @Override
@@ -62,7 +62,7 @@ public class HomePresenterImpl implements HomePresenter{
     }
 
     private void setData(final boolean loadMore) {
-        new BaseNetwork(homePresenterView.getContext(), url) {
+        new BaseNetwork(homePresenterView.getActivity(), url) {
             @Override
             public WeiboParameters setWeiboParameters() {
                 WeiboParameters weiboParameters = new WeiboParameters(BWConstants.APP_KEY);

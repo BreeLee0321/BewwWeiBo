@@ -11,8 +11,6 @@ import bree.com.bewwweibo.entities.StatusEntity;
  * Created by bree on 2017/5/23.
  */
 
-public interface HomePresenterView {
-    Context getContext();
+public interface HomePresenterView extends BaseMVPView{
     void sucess(List<StatusEntity> entity);
-    void fail(String reason);
 }
